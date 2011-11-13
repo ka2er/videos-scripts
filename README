@@ -1,0 +1,7 @@
+Script de normalisation des noms de films basé sur allocine.
+
+2 modes :
+
+* auto : devine l'id allocine si le fichier est nommé avec acxxxxx
+* manuel : l'id allocine doit être passé avec le nom du fichier
+
