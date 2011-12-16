@@ -29,20 +29,23 @@ allocine_id_to_name() {
 # @param string file_name
 standardize_file_name(){
 	local file=$1
-	local search="' : , \."
+        local search="' : , \. ( )"
 
 	for char in $search; do
 		file=$(echo $file | sed -e s/$char/-/gi)
 	done
 
         # les accents E
-        local search="é ë ê"
+        local search="é ë ê è"
         for char in $search; do
                 file=$(echo $file | sed -e s/$char/e/gi)
         done
 
-        # les lettre à
+        # la lettre à
 	file=$(echo $file | sed -e s/à/a/gi)
+
+        # les lettres o
+        file=$(echo $file | sed -e s/ô/o/gi)
 
         # et les espaces	
 	file=$(echo $file | sed -e s/\ /-/gi)
