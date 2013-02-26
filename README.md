@@ -1,6 +1,8 @@
-= a collection of simple scripts to manage a video collection =
+A collection of simple scripts to manage a video collection
+===========================================================
 
-==allocine-rename.sh==
+allocine-rename.sh
+------------------
 
 Script de normalisation des noms de films basé sur allocine.
 
@@ -9,7 +11,8 @@ Script de normalisation des noms de films basé sur allocine.
 * auto : devine l'id allocine si le fichier est nommé avec acxxxxx
 * manuel : l'id allocine doit être passé avec le nom du fichier
 
-==organize-by-links.sh==
+organize-by-links.sh
+--------------------
 
 Script qui permet de trier les films suivants deux critères :
 
