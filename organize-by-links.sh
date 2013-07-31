@@ -21,7 +21,7 @@ export ALPHANUM="$DIR/03_BY_LETTER"
 # how many days before a file is not considered NEW
 export NEW_DAYS=60
 # how many alpha/numeric directory do you want
-export NB_ALPHANUM_DIRS=10
+export NB_ALPHANUM_DIRS=17
 # movie file pattern
 export MOVIE_FILE_PATTERN='mkv|avi|iso'
 
@@ -111,7 +111,8 @@ for letter in {{0..9},{A..Z}}; do
 		mkdir -p "$LETTER_RANGE_DIR"
 		# move collected files
 		mv "$TMP_DIR/"* "$LETTER_RANGE_DIR/"
-		CUR_DIR=$letter
+		
+		CUR_DIR=$(echo $letter| tr 0-9A-Z 1-9A-ZZ)
 		CUR_TOTAL=0
 	fi
 done
