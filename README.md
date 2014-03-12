@@ -18,4 +18,3 @@ Script qui permet de trier les films suivants deux critères :
 
 * par nouveautés (par defaut 60 jours cf variable NEW_DAYS)
 * par première lettre du fichier (par défaut créé 10 repertoires cf variable NB_ALPHANUM_DIRS)
-

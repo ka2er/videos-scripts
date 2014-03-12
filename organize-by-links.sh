@@ -16,12 +16,16 @@ export DIR="${1%/}"
 #export ALL="$DIR/01_ALL"
 # directory for NEW files
 export NEW="$DIR/02_NEW"
+# directory for WIP files aka acceded recently
+export WIP="$DIR/02_WIP"
 # directory for alpha nums directories
 export ALPHANUM="$DIR/03_BY_LETTER"
 # how many days before a file is not considered NEW
-export NEW_DAYS=60
+export NEW_DAYS=30
+# how many days before a file is not considered WIP
+export WIP_DAYS=15
 # how many alpha/numeric directory do you want
-export NB_ALPHANUM_DIRS=17
+export NB_ALPHANUM_DIRS=20
 # movie file pattern
 export MOVIE_FILE_PATTERN='mkv|avi|iso'
 
@@ -53,6 +57,10 @@ if [ ! -d "$NEW" ]; then
 	mkdir "$NEW"
 fi
 
+if [ ! -d "$WIP" ]; then
+	mkdir "$WIP"
+fi
+
 if [ ! -d "$ALPHANUM" ]; then
 	mkdir "$ALPHANUM"
 fi
@@ -60,17 +68,29 @@ fi
 #
 # identify meta files that are not replicated into base directory
 #
-find "$NEW" -type f -exec cp -t "$DIR" {} \;
-find "$ALPHANUM" -type f -exec cp -t "$DIR" {} \;
+find "$NEW" -type f -exec cp -nt "$DIR" {} \;
+find "$WIP" -type f -exec cp -nt "$DIR" {} \;
+find "$ALPHANUM" -type f -exec cp -nt "$DIR" {} \;
 
 #
 # identify new files
 #
 rm "$NEW/"* # cleanup old files
 
-find -L "$DIR" -mtime -$NEW_DAYS -type f -regextype posix-extended -regex ".*($MOVIE_FILE_PATTERN)" -exec bash -c '
+find -L "$DIR" -ctime -$NEW_DAYS -type f -regextype posix-extended -regex ".*($MOVIE_FILE_PATTERN)" -exec bash -c '
 	link_files "$0" "$NEW"
 ' {} ';'
+
+#
+# identify wip files
+#
+rm "$WIP/"* # cleanup old files
+
+find -L "$DIR" -atime -$WIP_DAYS -type f -regextype posix-extended -regex ".*($MOVIE_FILE_PATTERN)" -exec bash -c '
+	link_files "$0" "$WIP"
+' {} ';'
+
+
 
 #
 # order by AlphaNum directories
